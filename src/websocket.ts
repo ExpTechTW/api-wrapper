@@ -14,14 +14,38 @@ export enum WebSocketEvent {
 }
 
 export enum SupportedService {
+  /**
+   * 即時地動資料
+   */
   RealtimeStation = "trem.rts",
+  /**
+   * 即時地動波形圖資料
+   */
   RealtimeWave = "trem.rtw",
+  /**
+   * 地震速報資料
+   */
   Eew = "websocket.eew",
+  /**
+   * TREM 地震速報資料
+   */
   TremEew = "trem.eew",
+  /**
+   * 中央氣象署地震報告資料
+   */
   Report = "websocket.report",
+  /**
+   * 中央氣象署海嘯資訊資料
+   */
   Tsunami = "websocket.tsunami",
-  TremIntensity = "trem.intensity",
+  /**
+   * 中央氣象署震度速報資料
+   */
   CwaIntensity = "cwa.intensity",
+  /**
+   * TREM 震度速報資料
+   */
+  TremIntensity = "trem.intensity",
 }
 
 export interface WebSocketConnectionConfig {
@@ -31,17 +55,18 @@ export interface WebSocketConnectionConfig {
   config?: {};
 }
 
-export enum WebSocketCloseCode {
-  InsufficientPermission = 4000,
-}
-
 export class ExpTechWebsocket extends EventEmitter {
   ws!: WebSocket;
   websocketConfig: WebSocketConnectionConfig;
 
-  constructor(websocketConfig: WebSocketConnectionConfig) {
+  constructor(websocketConfig: Omit<WebSocketConnectionConfig, "type">) {
     super();
-    this.websocketConfig = websocketConfig;
+
+    this.websocketConfig = {
+      ...websocketConfig,
+      type: "start"
+    };
+
     this.#initWebSocket();
   }
 
@@ -69,15 +94,9 @@ export class ExpTechWebsocket extends EventEmitter {
 
             case WebSocketEvent.Info: {
               switch (data.data.code) {
-                case 200:
-                  if (!data.data.list.length) {
-                    this.ws.close(WebSocketCloseCode.InsufficientPermission);
-                    break;
-                  }
-
-                  break;
+                case 200: break;
                 case 503:
-                  window.setTimeout(
+                  setTimeout(
                     () => this.ws.send(JSON.stringify(this.websocketConfig)),
                     5_000
                   );
@@ -115,15 +134,11 @@ export class ExpTechWebsocket extends EventEmitter {
     });
 
     this.ws.addEventListener("close", (ev) => {
-      console.log("[WebSocket] Socket closed");
       this.emit(WebSocketEvent.Close, ev);
-
-      if (ev.code != WebSocketCloseCode.InsufficientPermission)
-        window.setTimeout(this.#initWebSocket.bind(this), 5_000);
     });
 
     this.ws.addEventListener("error", (err) => {
-      console.error("[WebSocket]", err);
+      this.emit(WebSocketEvent.Error, err);
     });
   }
 }
@@ -158,9 +173,16 @@ export declare interface ExpTechWebsocket extends EventEmitter {
   on(event: WebSocketEvent.Report, listener: (report: Report) => void): this;
 
   /**
-   * 地震速報資料
+   * WebSocket 連線關閉
    * @param {WebSocketEvent.Close} event close
    * @param {(ev: CloseEvent) => void} listener
    */
   on(event: WebSocketEvent.Close, listener: (ev: CloseEvent) => void): this;
+
+  /**
+   * WebSocket 錯誤
+   * @param {WebSocketEvent.Error} event close
+   * @param {(error: unknown) => void} listener
+   */
+  on(event: WebSocketEvent.Error, listener: (error: unknown) => void): this;
 }

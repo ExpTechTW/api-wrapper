@@ -11,14 +11,38 @@ export declare enum WebSocketEvent {
     Error = "error"
 }
 export declare enum SupportedService {
+    /**
+     * 即時地動資料
+     */
     RealtimeStation = "trem.rts",
+    /**
+     * 即時地動波形圖資料
+     */
     RealtimeWave = "trem.rtw",
+    /**
+     * 地震速報資料
+     */
     Eew = "websocket.eew",
+    /**
+     * TREM 地震速報資料
+     */
     TremEew = "trem.eew",
+    /**
+     * 中央氣象署地震報告資料
+     */
     Report = "websocket.report",
+    /**
+     * 中央氣象署海嘯資訊資料
+     */
     Tsunami = "websocket.tsunami",
-    TremIntensity = "trem.intensity",
-    CwaIntensity = "cwa.intensity"
+    /**
+     * 中央氣象署震度速報資料
+     */
+    CwaIntensity = "cwa.intensity",
+    /**
+     * TREM 震度速報資料
+     */
+    TremIntensity = "trem.intensity"
 }
 export interface WebSocketConnectionConfig {
     type: "start";
@@ -26,14 +50,11 @@ export interface WebSocketConnectionConfig {
     service: SupportedService[];
     config?: {};
 }
-export declare enum WebSocketCloseCode {
-    InsufficientPermission = 4000
-}
 export declare class ExpTechWebsocket extends EventEmitter {
     #private;
     ws: WebSocket;
     websocketConfig: WebSocketConnectionConfig;
-    constructor(websocketConfig: WebSocketConnectionConfig);
+    constructor(websocketConfig: Omit<WebSocketConnectionConfig, "type">);
 }
 export declare interface ExpTechWebsocket extends EventEmitter {
     /**
@@ -61,9 +82,15 @@ export declare interface ExpTechWebsocket extends EventEmitter {
      */
     on(event: WebSocketEvent.Report, listener: (report: Report) => void): this;
     /**
-     * 地震速報資料
+     * WebSocket 連線關閉
      * @param {WebSocketEvent.Close} event close
      * @param {(ev: CloseEvent) => void} listener
      */
     on(event: WebSocketEvent.Close, listener: (ev: CloseEvent) => void): this;
+    /**
+     * WebSocket 錯誤
+     * @param {WebSocketEvent.Error} event close
+     * @param {(error: unknown) => void} listener
+     */
+    on(event: WebSocketEvent.Error, listener: (error: unknown) => void): this;
 }
