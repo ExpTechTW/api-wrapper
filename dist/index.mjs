@@ -269,7 +269,12 @@ class ExpTechApi extends EventEmitter {
      */
     async getAuthToken(options, route = 1) {
         const url = this.route.login(route);
-        return (await this.#post(url, JSON.stringify(options))).text();
+        const body = JSON.stringify({
+            email: options.email,
+            pass: options.password,
+            name: options.name
+        });
+        return (await this.#post(url, body)).text();
     }
 }
 
