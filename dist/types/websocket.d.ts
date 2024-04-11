@@ -14,6 +14,7 @@ export declare enum SupportedService {
     RealtimeStation = "trem.rts",
     RealtimeWave = "trem.rtw",
     Eew = "websocket.eew",
+    TremEew = "trem.eew",
     Report = "websocket.report",
     Tsunami = "websocket.tsunami",
     TremIntensity = "trem.intensity",
@@ -21,8 +22,8 @@ export declare enum SupportedService {
 }
 export interface WebSocketConnectionConfig {
     type: "start";
-    key?: string;
-    service?: SupportedService[];
+    key: string;
+    service: SupportedService[];
     config?: {};
 }
 export declare enum WebSocketCloseCode {
@@ -32,7 +33,7 @@ export declare class ExpTechWebsocket extends EventEmitter {
     #private;
     ws: WebSocket;
     websocketConfig: WebSocketConnectionConfig;
-    constructor(key?: string, websocketConfig?: WebSocketConnectionConfig);
+    constructor(websocketConfig: WebSocketConnectionConfig);
 }
 export declare interface ExpTechWebsocket extends EventEmitter {
     /**

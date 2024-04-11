@@ -250,6 +250,7 @@ var SupportedService;
     SupportedService["RealtimeStation"] = "trem.rts";
     SupportedService["RealtimeWave"] = "trem.rtw";
     SupportedService["Eew"] = "websocket.eew";
+    SupportedService["TremEew"] = "trem.eew";
     SupportedService["Report"] = "websocket.report";
     SupportedService["Tsunami"] = "websocket.tsunami";
     SupportedService["TremIntensity"] = "trem.intensity";
@@ -262,20 +263,9 @@ var WebSocketCloseCode;
 class ExpTechWebsocket extends EventEmitter {
     ws;
     websocketConfig;
-    constructor(key, websocketConfig) {
+    constructor(websocketConfig) {
         super();
-        this.websocketConfig = websocketConfig ?? {
-            type: "start",
-            key,
-            service: [
-                SupportedService.RealtimeStation,
-                SupportedService.Eew,
-                SupportedService.Report,
-                SupportedService.Tsunami,
-                SupportedService.CwaIntensity,
-                SupportedService.TremIntensity,
-            ]
-        };
+        this.websocketConfig = websocketConfig;
         this.#initWebSocket();
     }
     #initWebSocket() {
