@@ -504,6 +504,11 @@ export class ExpTechApi extends EventEmitter {
    */
   async getAuthToken(options: AuthenticationDetail, route: (1 | 2) = 1): Promise<string> {
     const url = this.route.login(route);
-    return (await this.#post(url, JSON.stringify(options))).text();
+    const auth = JSON.stringify({
+      email: options.email,
+      pass: options.password,
+      name: options.name
+    });
+    return (await this.#post(url, auth)).text();
   }
 }
