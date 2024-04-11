@@ -11,8 +11,7 @@
   "license": "MIT",
   "author": "ExpTechTW",
   "files": [
-    "dist",
-    "types"
+    "dist/*"
   ],
   "exports": {
     ".": {
