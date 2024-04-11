@@ -145,7 +145,10 @@ class ExpTechApi extends events.EventEmitter {
     constructor(key, defaultRequestHeaders) {
         super();
         this.key = key ?? "";
-        this.headers = defaultRequestHeaders ?? {};
+        this.headers = defaultRequestHeaders ?? {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        };
         this.route = new Route({ key: this.key });
     }
     setApiKey(apiKey) {

@@ -362,7 +362,10 @@ export class ExpTechApi extends EventEmitter {
   constructor(key?: string, defaultRequestHeaders?: HeadersInit) {
     super();
     this.key = key ?? "";
-    this.headers = defaultRequestHeaders ?? {};
+    this.headers = defaultRequestHeaders ?? {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    };
     this.route = new Route({ key: this.key });
   }
 
