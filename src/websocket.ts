@@ -61,7 +61,7 @@ export type WebSocketAuthenticationInfo = {
   list?: SupportedService[],
   fail?: SupportedService[],
 } | {
-  code: 400,
+  code: 400 | 401 | 403 | 429,
   message: string,
 };
 
