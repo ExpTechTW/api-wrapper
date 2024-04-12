@@ -56,10 +56,9 @@ export interface WebSocketConnectionConfig {
 }
 
 export type WebSocketAuthenticationInfo = {
-  code: number,
-  message?: string,
-  list?: SupportedService[],
-  fail?: SupportedService[],
+  code: 200,
+  list: SupportedService[],
+  failed: SupportedService[],
 } | {
   code: 400 | 401 | 403 | 429,
   message: string,
