@@ -125,7 +125,7 @@ export class ExpTechWebsocket extends EventEmitter {
                   break;
                 }
                 case WebSocketEvent.Rtw: {
-                  this.emit(WebSocketEvent.Rtw, data.data.data);
+                  this.emit(WebSocketEvent.Rtw, data.data);
                   break;
                 }
                 case WebSocketEvent.Eew: {
