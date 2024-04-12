@@ -51,7 +51,7 @@ export enum SupportedService {
 export interface WebSocketConnectionConfig {
   type: "start";
   key: string;
-  service: SupportedService[];
+  list: SupportedService[];
   config?: {};
 }
 
