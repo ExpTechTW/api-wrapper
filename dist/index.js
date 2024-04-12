@@ -358,6 +358,7 @@ class ExpTechWebsocket extends events.EventEmitter {
                             break;
                         }
                         case exports.WebSocketEvent.Info: {
+                            this.emit(exports.WebSocketEvent.Info, data.data);
                             switch (data.data.code) {
                                 case 200: break;
                                 case 503:

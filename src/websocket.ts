@@ -55,6 +55,16 @@ export interface WebSocketConnectionConfig {
   config?: {};
 }
 
+export type WebSocketAuthenticationInfo = {
+  code: number,
+  message?: string,
+  list?: SupportedService[],
+  fail?: SupportedService[],
+} | {
+  code: 400,
+  message: string,
+};
+
 export class ExpTechWebsocket extends EventEmitter {
   ws!: WebSocket;
   websocketConfig: WebSocketConnectionConfig;
@@ -93,6 +103,7 @@ export class ExpTechWebsocket extends EventEmitter {
             }
 
             case WebSocketEvent.Info: {
+              this.emit(WebSocketEvent.Info, data.data);
               switch (data.data.code) {
                 case 200: break;
                 case 503:
@@ -144,6 +155,12 @@ export class ExpTechWebsocket extends EventEmitter {
 }
 
 export declare interface ExpTechWebsocket extends EventEmitter {
+  /**
+   * 身份驗證資訊
+   * @param {WebSocketEvent.Info} event info
+   * @param {(info: WebSocketAuthenticationInfo) => void} listener
+   */
+  on(event: WebSocketEvent.Info, listener: (info: WebSocketAuthenticationInfo) => void): this;
   /**
    * 地動資料
    * @param {WebSocketEvent.Rts} event rts

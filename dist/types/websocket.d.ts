@@ -50,6 +50,15 @@ export interface WebSocketConnectionConfig {
     service: SupportedService[];
     config?: {};
 }
+export type WebSocketAuthenticationInfo = {
+    code: number;
+    message?: string;
+    list?: SupportedService[];
+    fail?: SupportedService[];
+} | {
+    code: 400;
+    message: string;
+};
 export declare class ExpTechWebsocket extends EventEmitter {
     #private;
     ws: WebSocket;
@@ -57,6 +66,12 @@ export declare class ExpTechWebsocket extends EventEmitter {
     constructor(websocketConfig: Omit<WebSocketConnectionConfig, "type">);
 }
 export declare interface ExpTechWebsocket extends EventEmitter {
+    /**
+     * 身份驗證資訊
+     * @param {WebSocketEvent.Info} event info
+     * @param {(info: WebSocketAuthenticationInfo) => void} listener
+     */
+    on(event: WebSocketEvent.Info, listener: (info: WebSocketAuthenticationInfo) => void): this;
     /**
      * 地動資料
      * @param {WebSocketEvent.Rts} event rts
