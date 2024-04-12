@@ -1,4 +1,4 @@
-import type { Eew, Ntp, Report, Rts } from "./api";
+import type { Eew, Ntp, Report, Rts, Rtw } from "./api";
 import { EventEmitter } from "events";
 import Route from "./route";
 
@@ -8,6 +8,7 @@ export enum WebSocketEvent {
   Ntp = "ntp",
   Report = "report",
   Rts = "rts",
+  Rtw = "rtw",
   Verify = "verify",
   Close = "close",
   Error = "error",
@@ -121,6 +122,10 @@ export class ExpTechWebsocket extends EventEmitter {
                   this.emit(WebSocketEvent.Rts, data.data.data);
                   break;
                 }
+                case WebSocketEvent.Rtw: {
+                  this.emit(WebSocketEvent.Rtw, data.data.data);
+                  break;
+                }
                 case WebSocketEvent.Eew: {
                   this.emit(WebSocketEvent.Eew, data.data);
                   break;
@@ -160,12 +165,20 @@ export declare interface ExpTechWebsocket extends EventEmitter {
    * @param {(info: WebSocketAuthenticationInfo) => void} listener
    */
   on(event: WebSocketEvent.Info, listener: (info: WebSocketAuthenticationInfo) => void): this;
+
   /**
    * 地動資料
    * @param {WebSocketEvent.Rts} event rts
    * @param {(rts: Rts) => void} listener
    */
   on(event: WebSocketEvent.Rts, listener: (rts: Rts) => void): this;
+
+  /**
+   * 測站波形資料
+   * @param {WebSocketEvent.Rtw} event rtw
+   * @param {(rtw: Rtw) => void} listener
+   */
+  on(event: WebSocketEvent.Rtw, listener: (rtw: Rtw) => void): this;
 
   /**
    * 地震速報資料

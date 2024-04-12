@@ -197,6 +197,19 @@ export interface Rts {
 }
 
 /**
+ * 測站波形資料
+ */
+export interface Rtw {
+  X: number[];
+  Y: number[];
+  Z: number[];
+  boot: boolean;
+  id: number;
+  time: number;
+  type: "rtw";
+}
+
+/**
  * 地震速報來源機關
  */
 export enum EewSource {

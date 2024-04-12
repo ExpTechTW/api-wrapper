@@ -1,4 +1,4 @@
-import type { Eew, Ntp, Report, Rts } from "./api";
+import type { Eew, Ntp, Report, Rts, Rtw } from "./api";
 import { EventEmitter } from "events";
 export declare enum WebSocketEvent {
     Eew = "eew",
@@ -6,6 +6,7 @@ export declare enum WebSocketEvent {
     Ntp = "ntp",
     Report = "report",
     Rts = "rts",
+    Rtw = "rtw",
     Verify = "verify",
     Close = "close",
     Error = "error"
@@ -77,6 +78,12 @@ export declare interface ExpTechWebsocket extends EventEmitter {
      * @param {(rts: Rts) => void} listener
      */
     on(event: WebSocketEvent.Rts, listener: (rts: Rts) => void): this;
+    /**
+     * 測站波形資料
+     * @param {WebSocketEvent.Rtw} event rtw
+     * @param {(rtw: Rtw) => void} listener
+     */
+    on(event: WebSocketEvent.Rtw, listener: (rtw: Rtw) => void): this;
     /**
      * 地震速報資料
      * @param {WebSocketEvent.Eew} event eew

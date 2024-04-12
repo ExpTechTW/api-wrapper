@@ -288,6 +288,7 @@ var WebSocketEvent;
     WebSocketEvent["Ntp"] = "ntp";
     WebSocketEvent["Report"] = "report";
     WebSocketEvent["Rts"] = "rts";
+    WebSocketEvent["Rtw"] = "rtw";
     WebSocketEvent["Verify"] = "verify";
     WebSocketEvent["Close"] = "close";
     WebSocketEvent["Error"] = "error";
@@ -369,6 +370,10 @@ class ExpTechWebsocket extends EventEmitter {
                             switch (data.data.type) {
                                 case WebSocketEvent.Rts: {
                                     this.emit(WebSocketEvent.Rts, data.data.data);
+                                    break;
+                                }
+                                case WebSocketEvent.Rtw: {
+                                    this.emit(WebSocketEvent.Rtw, data.data.data);
                                     break;
                                 }
                                 case WebSocketEvent.Eew: {
