@@ -49,7 +49,9 @@ export interface WebSocketConnectionConfig {
     type: "start";
     key: string;
     service: SupportedService[];
-    config?: {};
+    config?: Partial<{
+        [SupportedService.RealtimeWave]: number[];
+    }>;
 }
 export type WebSocketAuthenticationInfo = {
     code: 200;
