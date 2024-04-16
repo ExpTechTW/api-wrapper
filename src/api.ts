@@ -9,7 +9,7 @@ export interface StationInfo {
   /**
    * 測站郵遞區號 (地區編號)
    */
-  code: string;
+  code: number;
   /**
    * 測站經度
    */
