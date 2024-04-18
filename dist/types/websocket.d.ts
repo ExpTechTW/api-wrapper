@@ -66,6 +66,7 @@ export declare class ExpTechWebsocket extends EventEmitter {
     ws: WebSocket;
     websocketConfig: WebSocketConnectionConfig;
     constructor(websocketConfig: Omit<WebSocketConnectionConfig, "type">);
+    updateConfig(websocketConfig: Omit<WebSocketConnectionConfig, "type">): void;
 }
 export declare interface ExpTechWebsocket extends EventEmitter {
     /**

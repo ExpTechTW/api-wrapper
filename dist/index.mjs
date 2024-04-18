@@ -404,6 +404,13 @@ class ExpTechWebsocket extends EventEmitter {
             this.emit(WebSocketEvent.Error, err);
         });
     }
+    updateConfig(websocketConfig) {
+        this.websocketConfig = {
+            ...websocketConfig,
+            type: "start"
+        };
+        this.ws.send(JSON.stringify(this.websocketConfig));
+    }
 }
 
 export { EewSource, EewStatus, ExpTechApi, ExpTechWebsocket, Intensity, SupportedService, WebSocketEvent };

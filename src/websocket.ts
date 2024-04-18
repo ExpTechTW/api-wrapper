@@ -158,6 +158,15 @@ export class ExpTechWebsocket extends EventEmitter {
       this.emit(WebSocketEvent.Error, err);
     });
   }
+
+  updateConfig(websocketConfig: Omit<WebSocketConnectionConfig, "type">) {
+    this.websocketConfig = {
+      ...websocketConfig,
+      type: "start"
+    };
+
+    this.ws.send(JSON.stringify(this.websocketConfig));
+  }
 }
 
 export declare interface ExpTechWebsocket extends EventEmitter {
