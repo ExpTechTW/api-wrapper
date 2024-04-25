@@ -77,6 +77,6 @@ export default class Route {
   }
 
   station() {
-    return `${this.randomLoadBalancerUrl()}/file/resource/station.json` as const;
+    return "https://raw.githubusercontent.com/exptechtw/api/master/resource/station.json" as const;
   }
 }

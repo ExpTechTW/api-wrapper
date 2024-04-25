@@ -68,7 +68,7 @@ class Route {
         }
     }
     station() {
-        return `${this.randomLoadBalancerUrl()}/file/resource/station.json`;
+        return "https://raw.githubusercontent.com/exptechtw/api/master/resource/station.json";
     }
 }
 

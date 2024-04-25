@@ -17,6 +17,6 @@ export default class Route {
     rts(timestamp?: string): string;
     rtsImage(timestamp?: string): string;
     eew(timestamp?: string, type?: string): `https://lb-${number}.exptech.com.tw/api/v${number}/eq/eew/${string}` | `https://lb-${number}.exptech.com.tw/api/v${number}/eq/eew?type=${string}` | `https://lb-${number}.exptech.com.tw/api/v${number}/eq/eew`;
-    station(): `https://lb-${number}.exptech.com.tw/file/resource/station.json`;
+    station(): "https://raw.githubusercontent.com/exptechtw/api/master/resource/station.json";
 }
 export {};
