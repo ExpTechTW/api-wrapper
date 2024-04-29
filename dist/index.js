@@ -103,6 +103,11 @@ exports.EewSource = void 0;
      * @link https://www.scdzj.gov.cn
      */
     EewSource["Scdzj"] = "scdzj";
+    /**
+     * TREM 臺灣即時地震監測
+     * @link https://exptech.com.tw/
+     */
+    EewSource["Trem"] = "trem";
 })(exports.EewSource || (exports.EewSource = {}));
 /**
  * 地震速報狀態
@@ -261,7 +266,7 @@ class ExpTechApi extends events.EventEmitter {
      * 獲取地震速報資料
      * @param {number} [time] 時間
      * @param {EewSource} [type] 地震速報來源機關
-     * @returns {Promise<Eew[]>}
+     * @returns {Promise<EewType[]>}
      */
     async getEew(time, type) {
         const url = this.route.eew(time ? `${time}` : "");
