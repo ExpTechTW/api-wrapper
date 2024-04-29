@@ -252,12 +252,13 @@ export declare enum EewStatus {
      */
     Test = 3
 }
+type AuthoritySource = EewSource.Cwa | EewSource.Jma | EewSource.Nied | EewSource.Kma | EewSource.Scdzj;
 export type Eew = {
     type: "eew";
     /**
      * 地震速報來源機關
      */
-    author: EewSource;
+    author: AuthoritySource;
     /**
      * 地震速報 ID
      */
@@ -491,3 +492,4 @@ export declare class ExpTechApi extends EventEmitter {
      */
     getAuthToken(options: AuthenticationDetail, route?: (1 | 2)): Promise<string>;
 }
+export {};
