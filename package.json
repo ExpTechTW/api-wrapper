@@ -18,6 +18,7 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
+    "./types": "./dist/types",
     "./package.json": "./package.json"
   },
   "engines": {
