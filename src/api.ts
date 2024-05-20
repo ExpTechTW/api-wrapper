@@ -556,7 +556,7 @@ export class ExpTechApi extends EventEmitter {
    * @returns {Promise<Rts>}
    */
   async getRts(time?: number): Promise<Rts> {
-    const url = this.route.rts(time ? `${time}` : "");
+    const url = Route.rts(time ? `${time}` : "");
     return (await this.#get(url)).json();
   }
 
@@ -577,7 +577,7 @@ export class ExpTechApi extends EventEmitter {
    * @returns {Promise<EewType[]>}
    */
   async getEew(time?: number, type?: EewSource): Promise<EewType[]> {
-    const url = this.route.eew(time ? `${time}` : "");
+    const url = Route.eew(time ? `${time}` : "");
     return (await this.#get(url)).json();
   }
 

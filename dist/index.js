@@ -33,12 +33,13 @@ class Route {
     earthquakeReport(id) {
         return `${this.randomServerBaseUrl()}/eq/report/${id}`;
     }
-    rts(timestamp) {
+    static rts(timestamp) {
+        const baseurl = `https://lb-${Math.ceil(Math.random() * 4)}.exptech.com.tw/api/v1`;
         if (timestamp) {
-            return `${this.randomLoadBalancerBaseUrl()}/trem/rts/${timestamp}`;
+            return `${baseurl}/trem/rts/${timestamp}`;
         }
         else {
-            return `${this.randomLoadBalancerBaseUrl()}/trem/rts`;
+            return `${baseurl}/trem/rts`;
         }
     }
     rtsImage(timestamp) {
@@ -49,21 +50,22 @@ class Route {
             return `${this.randomLoadBalancerBaseUrl()}/trem/rts-image`;
         }
     }
-    eew(timestamp, type) {
+    static eew(timestamp, type) {
+        const baseurl = `https://lb-${Math.ceil(Math.random() * 4)}.exptech.com.tw/api/v1`;
         if (timestamp) {
             if (type) {
-                return `${this.randomLoadBalancerBaseUrl()}/eq/eew/${timestamp}?type=${type}`;
+                return `${baseurl}/eq/eew/${timestamp}?type=${type}`;
             }
             else {
-                return `${this.randomLoadBalancerBaseUrl()}/eq/eew/${timestamp}`;
+                return `${baseurl}/eq/eew/${timestamp}`;
             }
         }
         else {
             if (type) {
-                return `${this.randomLoadBalancerBaseUrl()}/eq/eew?type=${type}`;
+                return `${baseurl}/eq/eew?type=${type}`;
             }
             else {
-                return `${this.randomLoadBalancerBaseUrl()}/eq/eew`;
+                return `${baseurl}/eq/eew`;
             }
         }
     }
@@ -250,7 +252,7 @@ class ExpTechApi extends events.EventEmitter {
      * @returns {Promise<Rts>}
      */
     async getRts(time) {
-        const url = this.route.rts(time ? `${time}` : "");
+        const url = Route.rts(time ? `${time}` : "");
         return (await this.#get(url)).json();
     }
     /**
@@ -269,7 +271,7 @@ class ExpTechApi extends events.EventEmitter {
      * @returns {Promise<EewType[]>}
      */
     async getEew(time, type) {
-        const url = this.route.eew(time ? `${time}` : "");
+        const url = Route.eew(time ? `${time}` : "");
         return (await this.#get(url)).json();
     }
     /**

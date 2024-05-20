@@ -44,11 +44,13 @@ export default class Route {
     return `${this.randomServerBaseUrl()}/eq/report/${id}` as const;
   }
 
-  rts(timestamp?: string) {
+  static rts(timestamp?: string) {
+    const baseurl = `https://lb-${Math.ceil(Math.random() * 4)}.exptech.com.tw/api/v1`;
+
     if (timestamp) {
-      return `${this.randomLoadBalancerBaseUrl()}/trem/rts/${timestamp}` as const;
+      return `${baseurl}/trem/rts/${timestamp}` as const;
     } else {
-      return `${this.randomLoadBalancerBaseUrl()}/trem/rts`;
+      return `${baseurl}/trem/rts`;
     }
   }
 
@@ -60,18 +62,20 @@ export default class Route {
     }
   }
 
-  eew(timestamp?: string, type?: string) {
+  static eew(timestamp?: string, type?: string) {
+    const baseurl = `https://lb-${Math.ceil(Math.random() * 4)}.exptech.com.tw/api/v1`;
+
     if (timestamp) {
       if (type) {
-        return `${this.randomLoadBalancerBaseUrl()}/eq/eew/${timestamp}?type=${type}` as const;
+        return `${baseurl}/eq/eew/${timestamp}?type=${type}` as const;
       } else {
-        return `${this.randomLoadBalancerBaseUrl()}/eq/eew/${timestamp}` as const;
+        return `${baseurl}/eq/eew/${timestamp}` as const;
       }
     } else {
       if (type) {
-        return `${this.randomLoadBalancerBaseUrl()}/eq/eew?type=${type}` as const;
+        return `${baseurl}/eq/eew?type=${type}` as const;
       } else {
-        return `${this.randomLoadBalancerBaseUrl()}/eq/eew` as const;
+        return `${baseurl}/eq/eew` as const;
       }
     }
   }
