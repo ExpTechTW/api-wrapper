@@ -167,6 +167,10 @@ export class ExpTechWebsocket extends EventEmitter {
 
     this.ws.send(JSON.stringify(this.websocketConfig));
   }
+
+  [Symbol.dispose](): void {
+    this.ws.close();
+  }
 }
 
 export declare interface ExpTechWebsocket extends EventEmitter {

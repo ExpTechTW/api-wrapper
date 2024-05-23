@@ -420,6 +420,9 @@ class ExpTechWebsocket extends events.EventEmitter {
         };
         this.ws.send(JSON.stringify(this.websocketConfig));
     }
+    [Symbol.dispose]() {
+        this.ws.close();
+    }
 }
 
 exports.ExpTechApi = ExpTechApi;

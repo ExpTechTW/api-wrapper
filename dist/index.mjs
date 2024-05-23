@@ -418,6 +418,9 @@ class ExpTechWebsocket extends EventEmitter {
         };
         this.ws.send(JSON.stringify(this.websocketConfig));
     }
+    [Symbol.dispose]() {
+        this.ws.close();
+    }
 }
 
 export { EewSource, EewStatus, ExpTechApi, ExpTechWebsocket, Intensity, SupportedService, WebSocketEvent };
